@@ -1,5 +1,6 @@
 package com.hirrua.api_restaurante.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.*;
@@ -20,9 +21,11 @@ public class CustomerEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonProperty("full_name")
     @Column(name = "full_name", nullable = false, length = 50)
     private String fullName;
 
+    @JsonProperty("mobile_phone")
     @Column(name = "mobile_phone", length = 11)
     private String mobilePhone;
 

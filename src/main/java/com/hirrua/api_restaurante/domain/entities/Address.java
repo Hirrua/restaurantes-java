@@ -1,5 +1,6 @@
 package com.hirrua.api_restaurante.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -19,6 +20,7 @@ public class Address {
     @Column(length = 50)
     private String complement;
 
+    @JsonProperty("postal_code")
     @Column(name = "postal_code", nullable = false, length = 20)
     private String postalCode;
 
