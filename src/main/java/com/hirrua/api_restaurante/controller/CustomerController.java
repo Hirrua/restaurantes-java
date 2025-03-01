@@ -39,11 +39,7 @@ public class CustomerController {
 
     @GetMapping("/{id}")
     public ResponseEntity<CustomerResponseDto> getCustomerById(@PathVariable(value = "id") Long id) {
-        try {
-            return ResponseEntity.ok(customerService.findById(id));
-        } catch (NoSuchElementException err) {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(customerService.findById(id));
     }
 
     @PutMapping("/{id}")
@@ -57,7 +53,7 @@ public class CustomerController {
     }
 
     @PostMapping("/document")
-    public ResponseEntity<CustomerResponseDto> getCustomerByDocument(@RequestBody @NotNull CustomerDocumentRequestDto customerDocumentRequestDto) {
+    public ResponseEntity<CustomerResponseDto> getCustomerByDocument(@RequestBody @Valid CustomerDocumentRequestDto customerDocumentRequestDto) {
         try {
             return ResponseEntity.ok(customerService.findByDocument(customerDocumentRequestDto.getDocument()));
         } catch (NoSuchElementException err) {

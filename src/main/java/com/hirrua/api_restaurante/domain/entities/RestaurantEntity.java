@@ -1,6 +1,7 @@
 package com.hirrua.api_restaurante.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.hirrua.api_restaurante.domain.enums.RestaurantCategoryEnum;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,8 +27,9 @@ public class RestaurantEntity {
     @Column(length = 500)
     private String description;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 50)
-    private String category;
+    private RestaurantCategoryEnum category;
 
     @Column(nullable = true)
     private Integer rating;

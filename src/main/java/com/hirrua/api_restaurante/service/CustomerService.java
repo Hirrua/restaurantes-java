@@ -4,6 +4,8 @@ import com.hirrua.api_restaurante.domain.entities.CustomerEntity;
 import com.hirrua.api_restaurante.dtos.customer.CustomerRequestDto;
 import com.hirrua.api_restaurante.dtos.customer.CustomerResponseDto;
 import com.hirrua.api_restaurante.dtos.customer.CustomerUpdateRequestDto;
+import com.hirrua.api_restaurante.exceptions.CustomerNotFoundException;
+import com.hirrua.api_restaurante.exceptions.NoDataAvailableException;
 import com.hirrua.api_restaurante.mapstruct.CustomerMapper;
 import com.hirrua.api_restaurante.mapstruct.CustomerUpdateMapper;
 import com.hirrua.api_restaurante.repositories.CustomerRepository;
@@ -11,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 public class CustomerService {
@@ -33,32 +34,38 @@ public class CustomerService {
         return customerEntity.getId();
     }
 
-    public List<CustomerResponseDto> findAllCustomers() {
+    public List<CustomerResponseDto> findAllCustomers() throws NoDataAvailableException {
         List<CustomerEntity> customerEntity = customerRepository.findAll();
+
+        if (customerEntity.isEmpty()) {
+            throw new NoDataAvailableException();
+        }
+
         return customerMapper.toListCustomerResponseDto(customerEntity);
     }
 
-    public CustomerResponseDto findById(Long id){
+    public CustomerResponseDto findById(Long id) throws CustomerNotFoundException {
         return customerRepository.findById(id)
                 .map(customerMapper::toCustomerResponseDto)
-                .orElseThrow(NoSuchElementException::new);
+                .orElseThrow(CustomerNotFoundException::new);
     }
 
-    public void update(Long id, CustomerUpdateRequestDto customerUpdateRequestDto) throws NoSuchElementException {
-        var customerEntity = customerRepository.findById(id).orElseThrow(NoSuchElementException::new);
+    public CustomerResponseDto findByDocument(String document) throws CustomerNotFoundException {
+        return customerRepository.findByDocument(document)
+                .map(customerMapper::toCustomerResponseDto)
+                .orElseThrow(CustomerNotFoundException::new);
+    }
+
+    @Transactional
+    public void update(Long id, CustomerUpdateRequestDto customerUpdateRequestDto) throws CustomerNotFoundException {
+        var customerEntity = customerRepository.findById(id).orElseThrow(CustomerNotFoundException::new);
         var customerUpdateEntity = customerUpdateMapper.toCustomerUpdateEntity(customerUpdateRequestDto, customerEntity);
         customerRepository.save(customerUpdateEntity);
     }
 
-    public CustomerResponseDto findByDocument(String document) throws NoSuchElementException {
-        return customerRepository.findByDocument(document)
-                .map(customerMapper::toCustomerResponseDto)
-                .orElseThrow(NoSuchElementException::new);
-    }
-
     @Transactional
-    public void delete(Long id) throws NoSuchElementException {
-        customerRepository.findById(id).orElseThrow(NoSuchElementException::new);
+    public void delete(Long id) throws CustomerNotFoundException {
+        customerRepository.findById(id).orElseThrow(CustomerNotFoundException::new);
         customerRepository.deleteById(id);
     }
 }
