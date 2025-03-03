@@ -1,11 +1,13 @@
 package com.hirrua.api_restaurante.domain.entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.hirrua.api_restaurante.domain.enums.RestaurantCategoryEnum;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -38,8 +40,9 @@ public class RestaurantEntity {
     private boolean delivery;
 
     @Embedded
-    private Set<Address> address;
+    private Address address;
 
-    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<MenuItemEntity> menuItems = new HashSet<>();
+    @OneToMany(mappedBy = "restaurant")
+    @JsonManagedReference
+    private List<MenuItemEntity> menuItems = new ArrayList<>();
 }

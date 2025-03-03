@@ -1,6 +1,6 @@
 package com.hirrua.api_restaurante.handler;
 
-import com.hirrua.api_restaurante.exceptions.CustomerNotFoundException;
+import com.hirrua.api_restaurante.exceptions.EntityNotFoundException;
 import com.hirrua.api_restaurante.exceptions.NoDataAvailableException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,8 +11,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(CustomerNotFoundException.class)
-    private ResponseEntity<String> customerNotFoundHandler(CustomerNotFoundException exception) {
+    @ExceptionHandler(EntityNotFoundException.class)
+    private ResponseEntity<String> customerNotFoundHandler(EntityNotFoundException exception) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
     }
 

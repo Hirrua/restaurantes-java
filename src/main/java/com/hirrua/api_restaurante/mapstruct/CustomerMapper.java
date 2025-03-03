@@ -1,6 +1,7 @@
 package com.hirrua.api_restaurante.mapstruct;
 
 import com.hirrua.api_restaurante.domain.entities.CustomerEntity;
+import com.hirrua.api_restaurante.dtos.customer.CustomerOrderResponseDto;
 import com.hirrua.api_restaurante.dtos.customer.CustomerRequestDto;
 import com.hirrua.api_restaurante.dtos.customer.CustomerResponseDto;
 import org.mapstruct.Mapper;
@@ -17,5 +18,7 @@ public interface CustomerMapper {
 
     CustomerResponseDto toCustomerResponseDto(CustomerEntity entity);
 
-    List<CustomerResponseDto> toListCustomerResponseDto (List<CustomerEntity> entityList);
+    List<CustomerResponseDto> toListCustomerResponseDto(List<CustomerEntity> entityList);
+
+    CustomerOrderResponseDto toCustomerOrderResponseDto(CustomerEntity entity);
 }
