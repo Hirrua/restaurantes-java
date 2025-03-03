@@ -1,7 +1,5 @@
 package com.hirrua.api_restaurante.dtos.restaurant;
 
-import com.hirrua.api_restaurante.domain.entities.Address;
-import com.hirrua.api_restaurante.domain.entities.MenuItemEntity;
 import com.hirrua.api_restaurante.domain.enums.RestaurantCategoryEnum;
 import com.hirrua.api_restaurante.dtos.menu.MenuResponseDto;
 import lombok.AllArgsConstructor;

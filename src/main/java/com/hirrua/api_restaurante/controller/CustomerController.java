@@ -6,7 +6,6 @@ import com.hirrua.api_restaurante.dtos.customer.CustomerResponseDto;
 import com.hirrua.api_restaurante.dtos.customer.CustomerUpdateRequestDto;
 import com.hirrua.api_restaurante.service.CustomerService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
