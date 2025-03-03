@@ -9,8 +9,6 @@ import java.util.Optional;
 
 public interface RestaurantRepository extends JpaRepository<RestaurantEntity, Long> {
 
-    Optional<RestaurantEntity> findByCategory(String category);
-
     @Query("SELECT r FROM RestaurantEntity r LEFT JOIN FETCH r.menuItems WHERE r.id = :id")
     Optional<RestaurantEntity> findByIdWithMenuItems(@Param("id") Long id);
 }
