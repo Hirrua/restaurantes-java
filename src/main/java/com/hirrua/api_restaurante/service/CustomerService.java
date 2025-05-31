@@ -10,6 +10,7 @@ import com.hirrua.api_restaurante.mapstruct.CustomerMapper;
 import com.hirrua.api_restaurante.mapstruct.CustomerUpdateMapper;
 import com.hirrua.api_restaurante.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,17 +22,20 @@ public class CustomerService {
     private final CustomerRepository customerRepository;
     private final CustomerMapper customerMapper;
     private final CustomerUpdateMapper customerUpdateMapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public CustomerService(CustomerRepository customerRepository, CustomerMapper customerMapper, CustomerUpdateMapper customerUpdateMapper) {
+    public CustomerService(CustomerRepository customerRepository, CustomerMapper customerMapper, PasswordEncoder passwordEncoder, CustomerUpdateMapper customerUpdateMapper) {
         this.customerRepository = customerRepository;
         this.customerMapper = customerMapper;
         this.customerUpdateMapper = customerUpdateMapper;
+        this.passwordEncoder =  passwordEncoder;
     }
 
     @Transactional
     public Long create(CustomerRequestDto customer) {
         var customerEntity = customerMapper.toCustomerEntity(customer);
+        customerEntity.setPassword(passwordEncoder.encode(customer.getPassword()));
         customerRepository.save(customerEntity);
         return customerEntity.getId();
     }
