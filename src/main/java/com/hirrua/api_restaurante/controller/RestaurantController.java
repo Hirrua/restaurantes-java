@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 
 @RestController
-@RequestMapping("v1/restaurants")
+@RequestMapping("/api/v1/restaurants")
 public class RestaurantController {
 
     private final RestaurantService restaurantService;
