@@ -5,7 +5,10 @@ que estudo.
 O projeto é uma API onde pode criar o customer (cliente), restaurant (restaurante), menu (prato do menu) e
 order (pedido).
 
->Esse projeto visa apenas estudos, não segue uma boa lógica, trata-se apenas para iniciar e aprender ao decorrer do desenvolvimento
+### Spring Security
+> Implementado spring security, geração de token JWT, configuração da cadeia de filtros de segurança. Sobrescrita do método
+> doFilterInternal da classe OncePerRequestFilter, para capturar o token no cabeçalho da requisição.
+> Implementação da classe UserDetails e adição de Roles.
 
 ## Operações nos end-points
 

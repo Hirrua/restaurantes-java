@@ -1,4 +1,4 @@
-package config;
+package com.hirrua.api_restaurante.config;
 
 import com.hirrua.api_restaurante.repositories.CustomerRepository;
 import com.hirrua.api_restaurante.service.TokenService;
